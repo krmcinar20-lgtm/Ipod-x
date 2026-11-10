@@ -3,218 +3,207 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08090b">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#111">
 <title>iPod X</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#08090b;color:white;font-family:Arial,sans-serif}
-#app{height:100dvh;width:100%;display:flex;flex-direction:column;background:linear-gradient(145deg,#333943,#090a0d 45%,#171b20);padding:clamp(10px,3vw,24px);overflow:hidden}
-header{height:38px;display:flex;align-items:center;justify-content:space-between;font-size:13px;letter-spacing:3px;font-weight:bold}
-header span:last-child{color:#aab2be;font-size:10px}
-#screen{flex:1;min-height:0;background:linear-gradient(145deg,#eef1f5,#abb4c0);color:#151a22;border:5px solid #050607;border-radius:12px;box-shadow:inset 0 0 25px #3335;overflow:hidden;display:flex;flex-direction:column}
-#statusbar{height:32px;background:linear-gradient(#fff,#b9c1cc);border-bottom:1px solid #858e9b;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:11px;font-weight:bold}
-#content{padding:13px;overflow:auto;flex:1}
-h2{font-size:19px;margin:5px 0 13px}
-.item{padding:13px 10px;border-bottom:1px solid #858e9b;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:bold;cursor:pointer}
-.item.selected,.item:active{background:#344052;color:white}
-.item small{font-size:10px;font-weight:normal}
-.arrow{font-size:20px}
-.now-art{width:min(48vw,190px);aspect-ratio:1;margin:12px auto;background:linear-gradient(135deg,#202a38,#8996a8,#171c25);border:4px solid #f6f7f8;box-shadow:0 4px 12px #3336;display:grid;place-items:center;color:white;font-size:48px}
-.center{text-align:center}
-#songTitle{font-size:20px;font-weight:bold;margin:12px 0 5px;overflow-wrap:anywhere}
-#artist{font-size:12px;color:#424b59}
-.times{display:flex;justify-content:space-between;font-size:10px;margin-top:12px}
-input[type=range]{width:100%;accent-color:#303c4c}
-button{cursor:pointer}
-.action{background:linear-gradient(#fff,#aeb7c2);color:#151a22;border:1px solid #78818d;border-radius:6px;padding:10px;font-weight:bold}
-.action:active{filter:brightness(.85)}
-.row{display:flex;gap:8px;margin-top:12px}
-.row button{flex:1}
-.info{font-size:12px;color:#46505d;line-height:1.6}
-.wheel-wrap{flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vh,25px) 0}
-#wheel{width:min(58vw,270px);height:min(58vw,270px);max-height:32vh;max-width:32vh;min-width:190px;min-height:190px;border-radius:50%;position:relative;background:radial-gradient(circle at 35% 25%,#fff,#e2e5e9 35%,#aeb6c0 68%,#f5f6f8 73%,#747d88 80%,#d7dce2 100%);box-shadow:0 8px 25px #000b,inset 0 2px 5px white;border:1px solid #69717c}
-#wheel button{position:absolute;border:0;background:transparent;color:#303945;font-weight:bold}
-#menu{top:9%;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:2px}
-#prev{left:7%;top:47%;font-size:21px}
-#next{right:7%;top:47%;font-size:21px}
-#play{bottom:8%;left:50%;transform:translateX(-50%);font-size:17px}
-#select{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:39%;height:39%;border-radius:50%;background:linear-gradient(145deg,#fff,#b6bec8);border:1px solid #77818e;font-size:11px;box-shadow:0 2px 7px #3335}
-footer{text-align:center;color:#9aa3af;font-size:9px;letter-spacing:3px;padding-bottom:3px}
-.hidden{display:none!important}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080808;color:white;font-family:Arial,sans-serif;touch-action:manipulation}
+#app{height:100dvh;width:100%;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);background:linear-gradient(145deg,#555,#171717 35%,#080808 75%,#444)}
+#screen{margin:12px 12px 8px;height:36%;min-height:190px;border:5px solid #777;border-radius:8px;background:linear-gradient(#e9edf0,#9da4aa);color:#111;overflow:hidden;box-shadow:inset 0 0 12px #333,0 4px 10px #000}
+#status{height:24px;background:#30343a;color:white;padding:4px 9px;font-size:11px;display:flex;justify-content:space-between}
+#header{padding:9px 12px;font-weight:bold;font-size:19px;border-bottom:1px solid #777;background:linear-gradient(#f5f5f5,#adb3b9)}
+#content{height:calc(100% - 55px);overflow:auto}
+.item{padding:10px 12px;border-bottom:1px solid #888;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.item.selected{background:linear-gradient(#347bd0,#0750a3);color:white}
+#wheelArea{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px}
+#wheel{width:min(78vw,340px,48vh);aspect-ratio:1;border-radius:50%;background:linear-gradient(145deg,#f9f9f9,#aeb2b6 45%,#ededed 75%,#888);box-shadow:0 10px 28px #000, inset 0 3px 8px white,inset 0 -5px 9px #555;position:relative;touch-action:none;user-select:none}
+.wheelText{position:absolute;color:#34383c;font-weight:bold;font-size:clamp(12px,3.5vw,16px)}
+#menuBtn{top:12%;left:50%;transform:translateX(-50%)}
+#prev{left:12%;top:50%;transform:translateY(-50%);font-size:24px}
+#next{right:12%;top:50%;transform:translateY(-50%);font-size:24px}
+#play{bottom:12%;left:50%;transform:translateX(-50%);font-size:20px}
+#center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:43%;height:43%;border-radius:50%;border:1px solid #888;background:linear-gradient(145deg,#eee,#aeb2b6);box-shadow:inset 0 3px 8px white,inset 0 -3px 7px #666}
+button{font:inherit;cursor:pointer}
+#center:active,.wheelText:active{opacity:.6}
 #file{display:none}
+#toast{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:#222;color:white;padding:9px 15px;border-radius:20px;font-size:12px;display:none;z-index:10}
+#nowArt{height:65px;width:65px;background:linear-gradient(135deg,#555,#111);border:2px solid #555;display:grid;place-items:center;color:white;font-size:26px}
+#progress{width:100%;accent-color:#333}
+.small{font-size:12px;color:#333}
 </style>
 </head>
 <body>
 <div id="app">
-<header><span>◉ iPod X</span><span id="clock">MUSIC SYSTEM</span></header>
-<section id="screen">
-<div id="statusbar"><span id="screenName">MAIN MENU</span><span>● PLAY ▰</span></div>
-<div id="content"></div>
-</section>
-<div class="wheel-wrap">
-<div id="wheel">
-<button id="menu">MENU</button>
-<button id="prev">|◀</button>
-<button id="next">▶|</button>
-<button id="play">▶ / ❚❚</button>
-<button id="select">SELECT</button>
+ <div id="screen">
+  <div id="status"><span>◉ iPod X</span><span id="clock">18:00 ▰</span></div>
+  <div id="header">iPod</div>
+  <div id="content"></div>
+ </div>
+ <div id="wheelArea">
+  <div id="wheel">
+   <div class="wheelText" id="menuBtn">MENU</div>
+   <div class="wheelText" id="prev">◀◀</div>
+   <div class="wheelText" id="next">▶▶</div>
+   <div class="wheelText" id="play">▶Ⅱ</div>
+   <div id="center"></div>
+  </div>
+ </div>
+ <input type="file" id="file" accept="audio/*" multiple>
 </div>
-</div>
-<footer>CLASSIC MUSIC EXPERIENCE</footer>
-<input id="file" type="file" accept="audio/*" multiple>
+<div id="toast"></div>
 <audio id="audio"></audio>
-</div>
 <script>
 const $=id=>document.getElementById(id);
-const content=$('content'),audio=$('audio');
-let page='home',songs=[],current=-1,playlists=[],activePlaylist=-1,repeat=0,shuffle=false;
-
-function render(){
- $('screenName').textContent=page.toUpperCase().replace('NOW','NOW');
- content.innerHTML='';
- if(page==='home'){
-  heading('iPod X');
-  menuItem('Music','music');
-  menuItem('Playlists','playlists');
-  menuItem('Now Playing','now');
-  menuItem('Settings','settings');
- }
- if(page==='music'){
-  heading('MUSIC');
-  menuItem('All Songs','songs');
-  menuItem('Albums','albums');
-  menuItem('Artists','artists');
-  menuItem('Add Music','add');
- }
- if(page==='songs'){
-  heading('ALL SONGS');
-  if(!songs.length)message('Your library is empty. Add music from the Music menu.');
-  songs.forEach((s,i)=>trackItem(s.name,()=>playSong(i),i===current?'♪':'▶'));
-  button('＋ ADD MUSIC',addMusic);
- }
- if(page==='albums'){
-  heading('ALBUMS');
-  if(!songs.length)message('No albums yet. Add your music.');
-  else songs.forEach((s,i)=>trackItem(s.name,()=>playSong(i),'♫'));
- }
- if(page==='artists'){
-  heading('ARTISTS');
-  if(!songs.length)message('No artists yet. Add your music.');
-  else songs.forEach((s,i)=>trackItem('Unknown Artist',()=>playSong(i),'›'));
- }
- if(page==='playlists'){
-  heading('PLAYLISTS');
-  button('＋ CREATE PLAYLIST',createPlaylist);
-  playlists.forEach((p,i)=>menuItem(p.name,'playlist:'+i));
-  if(!playlists.length)message('Create your first playlist.');
- }
- if(page.startsWith('playlist:')){
-  activePlaylist=Number(page.split(':')[1]);
-  const p=playlists[activePlaylist];
-  heading(p.name);
-  button('＋ ADD SONG TO PLAYLIST',()=>addToPlaylist(activePlaylist));
-  p.songs.forEach(i=>{if(songs[i])trackItem(songs[i].name,()=>playSong(i),'♪')});
-  if(!p.songs.length)message('This playlist is empty.');
- }
- if(page==='now')nowPlaying();
- if(page==='settings'){
-  heading('SETTINGS');
-  menuItem('Silver theme','theme');
-  menuItem('Blue theme','blue');
-  menuItem('Pink theme','pink');
-  menuItem('Clear music library','clear');
-  message('Your music files stay on your device.');
- }
- if(page==='theme'||page==='blue'||page==='pink'){
-  const colors={theme:'#d7dce2',blue:'#a8d8ff',pink:'#ffb7c5'};
-  $('wheel').style.filter='drop-shadow(0 0 8px '+colors[page]+')';
-  page='settings';render();
- }
-}
-function heading(t){const h=document.createElement('h2');h.textContent=t;content.append(h)}
-function message(t){const p=document.createElement('p');p.className='info';p.textContent=t;content.append(p)}
-function menuItem(t,target){
- const d=document.createElement('div');d.className='item';d.innerHTML='<span></span><span class="arrow">›</span>';d.firstChild.textContent=t;
- d.onclick=()=>{if(target==='add')addMusic();else if(target==='clear')clearMusic();else{page=target;render()}};content.append(d);
-}
-function trackItem(t,fn,icon){
- const d=document.createElement('div');d.className='item';
- const name=document.createElement('span');name.textContent=t;
- const right=document.createElement('small');right.textContent=icon;
- d.append(name,right);d.onclick=fn;content.append(d);
-}
-function button(t,fn){
- const b=document.createElement('button');b.className='action';b.textContent=t;b.style.width='100%';b.style.margin='5px 0';b.onclick=fn;content.append(b);
-}
-function addMusic(){$('file').click()}
-$('file').onchange=e=>{
- [...e.target.files].forEach(f=>{
-  if(!f.type.startsWith('audio/'))return;
-  songs.push({name:f.name.replace(/\.[^.]+$/,''),url:URL.createObjectURL(f)});
- });
- render();e.target.value='';
+const audio=$("audio");
+let songs=[],playlists=[],current=0,screen="home",selected=0,queue=[],rotation=0,lastAngle=null;
+let playing=false,shuffle=false,repeat=false;
+const menus={
+ home:["Music","Playlists","Now Playing","Settings"],
+ music:["All Songs","Albums","Artists","Add Music"],
+ settings:["Shuffle","Repeat","About"]
 };
-function playSong(i){
- if(!songs[i])return;
- current=i;audio.src=songs[i].url;audio.play().catch(()=>{});
- page='now';render();
+function toast(t){$("toast").textContent=t;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1800)}
+function title(t){$("header").textContent=t}
+function go(s){screen=s;selected=0;render()}
+function render(){
+ const c=$("content");c.innerHTML="";
+ if(screen==="home")showList("iPod",menus.home);
+ else if(screen==="music")showList("Music",menus.music);
+ else if(screen==="songs")showList("All Songs",songs.map(s=>s.name));
+ else if(screen==="playlists")showList("Playlists",["＋ Create Playlist",...playlists.map(p=>p.name)]);
+ else if(screen.startsWith("playlist:")){
+  let p=playlists[+screen.split(":")[1]];
+  showList(p.name,p.songs.map(i=>songs[i]?.name||"Unknown"));
+ }else if(screen==="settings")showList("Settings",menus.settings.map((x,i)=>x+(i===0?(shuffle?" ✓":""):i===1?(repeat?" ✓":""):"")));
+ else if(screen==="now")nowPlaying();
+ else if(screen==="albums")showList("Albums",[...new Set(songs.map(s=>s.album||"Unknown album"))]);
+ else if(screen==="artists")showList("Artists",[...new Set(songs.map(s=>s.artist||"Unknown artist"))]);
+}
+function showList(t,items){
+ title(t);
+ if(!items.length){let d=document.createElement("div");d.className="item";d.textContent="Nothing here yet";$("content").append(d);return}
+ items.forEach((v,i)=>{
+ let d=document.createElement("div");d.className="item"+(i===selected?" selected":"");
+ d.innerHTML="<span></span><span>›</span>";d.firstChild.textContent=v;
+ d.onclick=()=>{selected=i;render();activate()};
+ $("content").append(d);
+ });
 }
 function nowPlaying(){
- heading('NOW PLAYING');
- const art=document.createElement('div');art.className='now-art';art.textContent='♫';content.append(art);
- const title=document.createElement('div');title.id='songTitle';title.className='center';title.textContent=songs[current]?.name||'No song selected';content.append(title);
- const artist=document.createElement('div');artist.id='artist';artist.className='center';artist.textContent='LOCAL MUSIC';content.append(artist);
- const times=document.createElement('div');times.className='times';times.innerHTML='<span id="elapsed">0:00</span><span id="duration">0:00</span>';content.append(times);
- const seek=document.createElement('input');seek.type='range';seek.min=0;seek.max=1000;seek.value=0;seek.style.width='100%';seek.id='seek';seek.oninput=()=>{if(audio.duration)audio.currentTime=seek.value/1000*audio.duration};content.append(seek);
- const controls=document.createElement('div');controls.className='row';
- ['|◀','▶ / ❚❚','▶|'].forEach((t,i)=>{const b=document.createElement('button');b.className='action';b.textContent=t;b.onclick=[previous,toggle,next][i];controls.append(b)});
- content.append(controls);
- button(shuffle?'SHUFFLE: ON':'SHUFFLE: OFF',()=>{shuffle=!shuffle;render()});
- button(['REPEAT: OFF','REPEAT: ALL','REPEAT: ONE'][repeat],()=>{repeat=(repeat+1)%3;render()});
+ title("Now Playing");
+ let s=songs[current];
+ if(!s){$("content").innerHTML='<div class="item">Add music to begin</div>';return}
+ $("content").innerHTML='<div style="padding:12px;display:flex;gap:12px;align-items:center"><div id="nowArt">♫</div><div><b id="songName"></b><div class="small">iPod X Music</div></div></div><div style="padding:8px 12px"><input id="progress" type="range" min="0" max="100" value="0"><div style="display:flex;justify-content:space-between" class="small"><span id="elapsed">0:00</span><span id="duration">0:00</span></div></div><div style="text-align:center;padding:10px;font-size:20px">⏮　<span id="playState">▶</span>　⏭</div>';
+ $("songName").textContent=s.name;
+ $("playState").textContent=playing?"Ⅱ":"▶";
+ $("content").querySelector("#progress").oninput=e=>{if(audio.duration)audio.currentTime=audio.duration*e.target.value/100};
+}
+function activate(){
+ if(screen==="home"){
+  if(selected===0)go("music");
+  if(selected===1)go("playlists");
+  if(selected===2)go("now");
+  if(selected===3)go("settings");
+ }else if(screen==="music"){
+  if(selected===0)go("songs");
+  if(selected===1)go("albums");
+  if(selected===2)go("artists");
+  if(selected===3)$("file").click();
+ }else if(screen==="songs"){
+  playSong(selected);
+ }else if(screen==="playlists"){
+  if(selected===0)createPlaylist();
+  else go("playlist:"+(selected-1));
+ }else if(screen.startsWith("playlist:")){
+  let p=playlists[+screen.split(":")[1]];
+  let index=p.songs[selected];if(index!==undefined)playSong(index);
+ }else if(screen==="settings"){
+  if(selected===0){shuffle=!shuffle;toast("Shuffle "+(shuffle?"ON":"OFF"))}
+  if(selected===1){repeat=!repeat;toast("Repeat "+(repeat?"ON":"OFF"))}
+  render();
+ }else if(screen==="albums"||screen==="artists"){
+  toast("Select a song from All Songs");
+ }
 }
 function createPlaylist(){
- const name=prompt('Playlist name:');
- if(!name||!name.trim())return;
- playlists.push({name:name.trim(),songs:[]});
- render();
+ let name=prompt("Playlist name:");
+ if(!name)return;
+ playlists.push({name,songs:[]});
+ render();toast("Playlist created");
 }
-function addToPlaylist(i){
- if(!songs.length){alert('First add music to your library.');return}
- const n=prompt('Enter song number to add:\n'+songs.map((s,j)=>(j+1)+'. '+s.name).join('\n'));
- const num=Number(n)-1;
- if(Number.isInteger(num)&&songs[num]&&!playlists[i].songs.includes(num))playlists[i].songs.push(num);
- render();
+function playSong(i){
+ if(!songs[i])return;
+ current=i;audio.src=songs[i].url;audio.play().then(()=>playing=true).catch(()=>toast("Playback error"));
+ screen="now";render();
 }
-function toggle(){if(current<0){if(songs.length)playSong(0);return}if(audio.paused)audio.play();else audio.pause()}
 function next(){
  if(!songs.length)return;
- let i=current;
- if(shuffle&&songs.length>1)while(i===current)i=Math.floor(Math.random()*songs.length);
- else i=(current+1)%songs.length;
- playSong(i);
+ current=shuffle?Math.floor(Math.random()*songs.length):(current+1)%songs.length;
+ playSong(current);
 }
-function previous(){if(current<0)return;if(audio.currentTime>3)audio.currentTime=0;else playSong((current-1+songs.length)%songs.length)}
-function clearMusic(){
- if(!confirm('Clear all songs and playlists?'))return;
- audio.pause();audio.removeAttribute('src');audio.load();
- songs.forEach(s=>URL.revokeObjectURL(s.url));songs=[];playlists=[];current=-1;page='home';render();
+function previous(){
+ if(audio.currentTime>3){audio.currentTime=0;return}
+ current=(current-1+songs.length)%songs.length;playSong(current);
 }
-$('menu').onclick=()=>{page='home';render()};
-$('select').onclick=()=>{if(page==='home')page='music';else if(page==='music')page='songs';else if(page==='now')toggle();else if(page==='playlists')createPlaylist();render()};
-$('play').onclick=toggle;
-$('next').onclick=next;
-$('prev').onclick=previous;
-audio.ontimeupdate=()=>{
- const elapsed=$('elapsed'),duration=$('duration'),seek=$('seek');
- if(elapsed)elapsed.textContent=fmt(audio.currentTime);
- if(duration&&Number.isFinite(audio.duration))duration.textContent=fmt(audio.duration);
- if(seek&&audio.duration)seek.value=audio.currentTime/audio.duration*1000;
+function back(){
+ if(screen==="home")return;
+ if(screen==="music"||screen==="playlists"||screen==="settings"||screen==="now"||screen==="songs"||screen==="albums"||screen==="artists")go("home");
+ else if(screen.startsWith("playlist:"))go("playlists");
+}
+$("menuBtn").onclick=back;
+$("center").onclick=activate;
+$("next").onclick=next;
+$("prev").onclick=previous;
+$("play").onclick=()=>{
+ if(!songs.length){$("file").click();return}
+ if(audio.paused){audio.play();playing=true}else{audio.pause();playing=false}
+ if(screen==="now")render();
 };
-audio.onended=()=>{if(repeat===2){audio.currentTime=0;audio.play()}else if(repeat===1||current<songs.length-1)next()};
-function fmt(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
+$("file").onchange=e=>{
+ [...e.target.files].forEach(f=>songs.push({name:f.name,url:URL.createObjectURL(f)}));
+ toast(e.target.files.length+" songs added");
+ go("songs");
+};
+audio.onended=()=>{if(repeat)audio.currentTime=0,audio.play();else next()};
+audio.ontimeupdate=()=>{
+ let p=$("progress");if(p&&audio.duration){
+ p.value=audio.currentTime/audio.duration*100;
+ $("elapsed").textContent=fmt(audio.currentTime);
+ $("duration").textContent=fmt(audio.duration);
+ }};
+function fmt(t){if(!isFinite(t))return"0:00";return Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0")}
+$("wheel").addEventListener("pointerdown",e=>{
+ if(e.target.closest(".wheelText")||e.target.id==="center")return;
+ $("wheel").setPointerCapture(e.pointerId);
+ let r=$("wheel").getBoundingClientRect();
+ lastAngle=Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2);
+});
+$("wheel").addEventListener("pointermove",e=>{
+ if(lastAngle===null)return;
+ let r=$("wheel").getBoundingClientRect();
+ let a=Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2);
+ let diff=a-lastAngle;
+ if(diff>Math.PI)diff-=2*Math.PI;
+ if(diff< -Math.PI)diff+=2*Math.PI;
+ rotation+=diff;lastAngle=a;
+ if(Math.abs(rotation)>.45){
+  let dir=rotation>0?1:-1;
+  let items=$("content").querySelectorAll(".item");
+  if(items.length){selected=(selected+dir+items.length)%items.length;render()}
+  rotation=0;
+ }
+});
+$("wheel").addEventListener("pointerup",()=>lastAngle=null);
+$("wheel").addEventListener("pointercancel",()=>lastAngle=null);
+document.addEventListener("keydown",e=>{
+ if(e.key==="ArrowDown"){selected++;render()}
+ if(e.key==="ArrowUp"){selected=Math.max(0,selected-1);render()}
+ if(e.key==="Enter")activate();
+ if(e.key==="Escape")back();
+});
+setInterval(()=>$("clock").textContent=new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})+" ▰",10000);
 render();
 </script>
 </body>
 </html>
-
