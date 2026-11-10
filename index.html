@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101114">
+<title>iPod X</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:radial-gradient(#343a44,#090a0d 75%);
+ color:white;font-family:Arial,sans-serif;
+ min-height:100vh;display:flex;justify-content:center;
+ padding:25px 12px
+}
+.app{width:100%;max-width:420px}
+header{text-align:center;letter-spacing:5px;margin:5px 0 20px}
+.device{
+ background:linear-gradient(135deg,#68717c,#171a20 30%,#08090b);
+ border:2px solid #727985;border-radius:30px;
+ padding:15px;box-shadow:0 25px 60px #000
+}
+.screen{
+ background:linear-gradient(145deg,#f0f2f5,#aab3bf);
+ color:#151a22;border:6px solid #090b0e;
+ border-radius:12px;padding:15px;min-height:215px;
+ box-shadow:inset 0 0 20px #5555
+}
+.top{display:flex;justify-content:space-between;font-size:11px;font-weight:bold}
+.label{font-size:10px;letter-spacing:3px;margin-top:23px;color:#59616c}
+#title{font-size:24px;font-weight:900;margin:9px 0;overflow-wrap:anywhere}
+#artist{font-size:12px;color:#424a55}
+#status{font-size:10px;margin-top:15px}
+.times{display:flex;justify-content:space-between;font-size:10px;margin-top:15px}
+input[type=range]{width:100%;accent-color:#424c5b}
+.wheel{
+ width:220px;height:220px;border-radius:50%;margin:24px auto;
+ position:relative;background:radial-gradient(circle,#e8ebef,#aab1bb 70%,#f5f6f8 74%,#69717c 80%,#cbd0d7);
+ box-shadow:0 8px 20px #0009,inset 0 2px 5px white
+}
+.wheel button{position:absolute;border:0;background:transparent;color:#303844;font-weight:bold}
+#menu{top:17px;left:50%;transform:translateX(-50%)}
+#prev{left:13px;top:48%;font-size:20px}
+#next{right:13px;top:48%;font-size:20px}
+#play{bottom:16px;left:50%;transform:translateX(-50%)}
+#select{
+ position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+ width:88px;height:88px;border-radius:50%;
+ background:linear-gradient(145deg,#fff,#adb5c0);
+ border:1px solid #7c8591;font-weight:bold
+}
+.actions{display:flex;justify-content:center;gap:8px;margin-bottom:15px}
+button{cursor:pointer}
+.pill{
+ border:1px solid #69727e;border-radius:20px;padding:9px 13px;
+ background:linear-gradient(#454c56,#171a20);color:white;font-size:11px
+}
+.active{background:linear-gradient(#eee,#aab2bc);color:#111}
+.panel,.playlist,.settings{
+ background:#14171c;border:1px solid #424953;
+ border-radius:13px;padding:13px;margin-top:12px
+}
+h3{font-size:11px;letter-spacing:3px;color:#c3ccd7}
+.mainbtn{
+ width:100%;padding:12px;border:0;border-radius:9px;
+ background:linear-gradient(#f3f5f8,#aeb7c3);
+ color:#141820;font-weight:bold
+}
+.secondary{
+ width:100%;padding:10px;margin-top:8px;border-radius:8px;
+ border:1px solid #525c68;background:#242a32;color:white
+}
+.track{
+ display:flex;gap:10px;padding:12px 5px;
+ border-top:1px solid #343a43;cursor:pointer;font-size:12px
+}
+.track.current{background:#303741}
+.track span:nth-child(2){flex:1;overflow-wrap:anywhere}
+.track small{color:#929ba8}
+.settings{display:none}
+.settings.open{display:block}
+.setting{padding:10px 0;border-top:1px solid #343a43;font-size:12px}
+select{background:#292f38;color:white;padding:6px;border:1px solid #59616d;border-radius:6px}
+footer{text-align:center;color:#7d8794;font-size:9px;letter-spacing:3px;margin-top:17px}
+</style>
+</head>
+<body>
+<div class="app">
+<header>iPod X · CLASSIC</header>
+<div class="device">
+ <section class="screen">
+  <div class="top"><span>iPod X</span><span>◉ MUSIC</span><span>100%</span></div>
+  <div class="label">NOW PLAYING</div>
+  <div id="title">No music selected</div>
+  <div id="artist">Choose music from your device</div>
+  <div id="status">● READY</div>
+  <div class="times"><span id="elapsed">0:00</span><span id="duration">0:00</span></div>
+  <input id="seek" type="range" min="0" max="1000" value="0">
+ </section>
+
+ <div class="wheel">
+  <button id="menu">MENU</button>
+  <button id="prev">|◀</button>
+  <button id="next">▶|</button>
+  <button id="play">▶ / ❚❚</button>
+  <button id="select">SELECT</button>
+ </div>
+
+ <div class="actions">
+  <button class="pill" id="shuffle">⤨ SHUFFLE</button>
+  <button class="pill" id="repeat">↻ REPEAT OFF</button>
+ </div>
+
+ <section class="panel">
+  <h3>MY MUSIC</h3>
+  <button class="mainbtn" id="add">＋ ADD MUSIC</button>
+  <input id="files" type="file" accept="audio/*" multiple hidden>
+  <p style="font-size:11px;color:#999">MP3 ve cihazının desteklediği ses dosyalarını seç.</p>
+  <button class="secondary" id="clear">CLEAR PLAYLIST</button>
+ </section>
+
+ <section class="panel">
+  <h3>VOLUME</h3>
+  <input id="volume" type="range" min="0" max="1" step=".01" value=".8">
+  <div id="voltext" style="font-size:11px">80%</div>
+  <button class="secondary" id="settingsBtn">⚙ SETTINGS</button>
+ </section>
+
+ <section class="playlist">
+  <h3>PLAYLIST <small id="count">0 TRACKS</small></h3>
+  <div id="list" style="font-size:11px;color:#999">No music yet.</div>
+ </section>
+
+ <section class="settings" id="settings">
+  <h3>DEVICE SETTINGS</h3>
+  <div class="setting">Accent color:
+   <select id="accent">
+    <option value="#cbd0d7">Silver</option>
+    <option value="#9bdcff">Ice blue</option>
+    <option value="#d5baff">Purple</option>
+    <option value="#ffb7c9">Pink</option>
+   </select>
+  </div>
+  <div class="setting">Screen:
+   <select id="screen">
+    <option value="normal">Classic</option>
+    <option value="contrast(1.2)">High contrast</option>
+    <option value="brightness(.85)">Dim</option>
+   </select>
+  </div>
+  <p style="font-size:10px;color:#888">Your music stays on your device.</p>
+ </section>
+</div>
+<footer>Y2K MUSIC EXPERIENCE · 2001 — FOREVER</footer>
+</div>
+
+<audio id="audio"></audio>
+<script>
+const $=id=>document.getElementById(id);
+const audio=$('audio');
+let songs=[],index=-1,shuffle=false,repeat=0,urls=[];
+
+function time(s){
+ if(!Number.isFinite(s))return '0:00';
+ return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+}
+function render(){
+ $('count').textContent=songs.length+' TRACKS';
+ $('list').innerHTML='';
+ if(!songs.length){$('list').textContent='No music yet.';return}
+ songs.forEach((s,i)=>{
+  const row=document.createElement('div');
+  row.className='track'+(i===index?' current':'');
+  const n=document.createElement('span');
+  n.textContent=i===index?'♪':String(i+1).padStart(2,'0');
+  const name=document.createElement('span');
+  name.textContent=s.name;
+  const duration=document.createElement('small');
+  duration.textContent=s.duration||'--:--';
+  row.append(n,name,duration);
+  row.onclick=()=>playSong(i);
+  $('list').append(row);
+ });
+}
+function playSong(i){
+ if(!songs.length)return;
+ index=(i+songs.length)%songs.length;
+ audio.src=songs[index].url;
+ $('title').textContent=songs[index].name;
+ $('artist').textContent='LOCAL AUDIO';
+ render();
+ audio.play().catch(()=>{});
+}
+function toggle(){
+ if(index<0){if(songs.length)playSong(0);return}
+ if(audio.paused)audio.play();else audio.pause();
+}
+function next(){
+ if(!songs.length)return;
+ let n=index;
+ if(shuffle&&songs.length>1){
+  while(n===index)n=Math.floor(Math.random()*songs.length);
+ }else n=(index+1)%songs.length;
+ playSong(n);
+}
+function previous(){
+ if(index<0)return;
+ if(audio.currentTime>3){audio.currentTime=0;return}
+ playSong((index-1+songs.length)%songs.length);
+}
+$('add').onclick=()=>$('files').click();
+$('files').onchange=e=>{
+ [...e.target.files].forEach(f=>{
+  if(!f.type.startsWith('audio/')&&!/\.(mp3|m4a|wav|ogg|aac|flac)$/i.test(f.name))return;
+  const url=URL.createObjectURL(f);urls.push(url);
+  songs.push({name:f.name.replace(/\.[^.]+$/,''),url,duration:''});
+ });
+ render();
+ if(index<0&&songs.length)playSong(0);
+ e.target.value='';
+};
+$('play').onclick=toggle;
+$('select').onclick=toggle;
+$('next').onclick=next;
+$('prev').onclick=previous;
+$('shuffle').onclick=()=>{
+ shuffle=!shuffle;
+ $('shuffle').classList.toggle('active',shuffle);
+};
+$('repeat').onclick=()=>{
+ repeat=(repeat+1)%3;
+ $('repeat').textContent=['↻ REPEAT OFF','↻ REPEAT ALL','↻ REPEAT ONE'][repeat];
+ $('repeat').classList.toggle('active',repeat!==0);
+};
+$('clear').onclick=()=>{
+ audio.pause();audio.removeAttribute('src');audio.load();
+ urls.forEach(URL.revokeObjectURL);urls=[];
+ songs=[];index=-1;
+ $('title').textContent='No music selected';
+ $('artist').textContent='Choose music from your device';
+ $('status').textContent='● READY';
+ $('elapsed').textContent='0:00';$('duration').textContent='0:00';
+ $('seek').value=0;render();
+};
+audio.onplay=()=> $('status').textContent='▶ PLAYING';
+audio.onpause=()=> $('status').textContent='● PAUSED';
+audio.onloadedmetadata=()=>{
+ $('duration').textContent=time(audio.duration);
+ if(songs[index]){songs[index].duration=time(audio.duration);render()}
+};
+audio.ontimeupdate=()=>{
+ $('elapsed').textContent=time(audio.currentTime);
+ if(audio.duration)$('seek').value=audio.currentTime/audio.duration*1000;
+};
+audio.onended=()=>{
+ if(repeat===2){audio.currentTime=0;audio.play()}
+ else if(repeat===1||index<songs.length-1)next();
+};
+$('seek').oninput=()=>{
+ if(audio.duration)audio.currentTime=$('seek').value/1000*audio.duration;
+};
+$('volume').oninput=e=>{
+ audio.volume=e.target.value;
+ $('voltext').textContent=Math.round(audio.volume*100)+'%';
+ localStorage.setItem('ipodx-volume',audio.volume);
+};
+audio.volume=Number(localStorage.getItem('ipodx-volume')??.8);
+$('volume').value=audio.volume;
+$('voltext').textContent=Math.round(audio.volume*100)+'%';
+$('settingsBtn').onclick=()=>$('settings').classList.toggle('open');
+$('menu').onclick=()=>$('settings').classList.toggle('open');
+$('accent').onchange=e=>document.querySelector('.wheel').style.filter='hue-rotate(0deg) drop-shadow(0 0 5px '+e.target.value+')';
+$('screen').onchange=e=>document.querySelector('.screen').style.filter=e.target.value==='normal'?'none':e.target.value;
+render();
+</script>
+</body>
+</html>
